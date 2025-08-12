@@ -1,4 +1,4 @@
-import sql from "@/app/api/utils/sql";
+import sql from "../utils/sql.js";
 
 // Create a new card skin
 export async function POST(request) {
@@ -9,10 +9,7 @@ export async function POST(request) {
     // Handle toggle featured action
     if (action === "toggle-featured") {
       if (!cardId) {
-        return Response.json(
-          { success: false, error: "Card ID is required" },
-          { status: 400 },
-        );
+        return Response.json({ success: false, error: "Card ID is required" }, { status: 400 });
       }
 
       // Toggle featured status
@@ -24,10 +21,7 @@ export async function POST(request) {
       `;
 
       if (result.length === 0) {
-        return Response.json(
-          { success: false, error: "Card not found" },
-          { status: 404 },
-        );
+        return Response.json({ success: false, error: "Card not found" }, { status: 404 });
       }
 
       return Response.json({
@@ -39,10 +33,7 @@ export async function POST(request) {
 
     // Handle card creation
     if (!prompt || !image_url) {
-      return Response.json(
-        { success: false, error: "Prompt and image_url are required" },
-        { status: 400 },
-      );
+      return Response.json({ success: false, error: "Prompt and image_url are required" }, { status: 400 });
     }
 
     // Safety filter for prompts
@@ -85,10 +76,7 @@ export async function POST(request) {
     });
   } catch (error) {
     console.error("Error managing card skin:", error);
-    return Response.json(
-      { success: false, error: "Failed to manage card skin" },
-      { status: 500 },
-    );
+    return Response.json({ success: false, error: "Failed to manage card skin" }, { status: 500 });
   }
 }
 
@@ -118,9 +106,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Error fetching card skins:", error);
-    return Response.json(
-      { success: false, error: "Failed to fetch card skins" },
-      { status: 500 },
-    );
+    return Response.json({ success: false, error: "Failed to fetch card skins" }, { status: 500 });
   }
 }
